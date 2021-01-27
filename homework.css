@@ -1,0 +1,78 @@
+.bodyWrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.objImage{
+    width:90%;
+    height:300px;
+    margin:20px ;
+    background-image: url("https://cdn.mos.cms.futurecdn.net/dDnXnwH4fMkKAaJ6WVs2eP-970-80.jpg.webp");
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+
+}
+div.middleWrap{
+    width:95%;
+    height:70px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+.objName{
+    height:40px;
+    width:200px;
+    font-size: 30px;
+}
+.price{
+    width:200px;
+    height: 40px;
+    line-height:40px;
+    font-size: 20px;
+}
+.prodDiscription{
+    width:95%;
+    height:100px;
+}
+.order{
+    width:95%;
+    hieght:70px;
+    margin:10px 0 10px 0;
+    font-size: 30px;
+}
+.bottomWrap{
+    display: flex;
+    justify-content: flex-start;
+    width:95%;
+}
+.orderInform{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width:500px;
+
+}
+.orderInform > div{
+    width:200px;
+    height:40px;
+}
+input{
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+.btn-primary{
+    margin:10px;
+    width:200px;
+
+}
+.exchange{
+    justify-content: flex-start;
+    width:95%;
+    height:15px;
+    margin: 0 0 20px 0;
+    color:blue;
+}
+.objName, .order{
+    font-family: 'Do Hyeon', sans-serif;
+}
