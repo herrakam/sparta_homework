@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .bodyWrap{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .objImage{
+            width:90%;
+            height:300px;
+            margin:20px ;
+            background-image: url("https://cdn.mos.cms.futurecdn.net/dDnXnwH4fMkKAaJ6WVs2eP-970-80.jpg.webp");
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+
+        }
+        div.middleWrap{
+            width:95%;
+            height:70px;
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: row;
+        }
+        .objName{
+            height:40px;
+            width:200px;
+            font-size: 30px;
+        }
+        .price{
+            width:200px;
+            height: 40px;
+            line-height:40px;
+            font-size: 20px;
+        }
+        .prodDiscription{
+            width:95%;
+            height:100px;
+        }
+        .order{
+            width:95%;
+            hieght:70px;
+            margin:10px 0 10px 0;
+            font-size: 30px;
+        }
+        .bottomWrap{
+            display: flex;
+            justify-content: flex-start;
+            width:95%;
+        }
+        .orderInform{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            width:500px;
+
+        }
+        .orderInform > div{
+            width:200px;
+            height:40px;
+        }
+        input{
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+        .btn-primary{
+            margin:10px;
+            width:200px;
+
+        }
+        .exchange{
+            justify-content: flex-start;
+            width:95%;
+            height:15px;
+            margin: 0 0 20px 0;
+            color:blue;
+        }
+        .objName, .order{
+            font-family: 'Do Hyeon', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div class="bodyWrap">
+    <div class="objImage">
+    </div>
+    <div class="middleWrap">
+        <div class="objName">GALAXY S 21</div>
+        <div class="price">가격: 990,000원 / 개</div>
+    </div>
+    <div class="prodDiscription">
+        인생 사진을 절대 놓치지 않는 방법. 갤럭시 S21 5G, 그리고 S21+ 5G를 선보입니다.
+        스마트폰 촬영의 혁신을 경험해보세요. 8K 동영상 촬영에,
+        바로 영상에서 고화질 사진까지 추출할 수 있다니. 말 다했죠? 6,400만 화소 카메라,
+        갤럭시 사상 가장 빠른 칩과 대용량 올데이 배터리까지. 감탄할 준비, 되셨나요?
+    </div>
+    <div class="order">주문하기</div>
+    <div class="exchange" onload="showExchange()"></div>
+    <div class="bottomWrap">
+        <div class="orderInform">
+            <div class="name">주문자 성함</div>
+            <div class="getName getInfo">
+                <input class="nameInput">
+            </div>
+            <div class="orderCount">수량</div>
+            <div class="getCount getInfo">
+                <input type="text" class="countInput" placeholder="숫자만 입력하세요">
+            </div>
+            <div class="address">주소</div>
+            <div class="getAddress getInfo">
+                <input type="text" class="addressInput">
+            </div>
+            <div class="phone">전화번호</div>
+            <div class="getPhone getInfo">
+                <input type="text" class="phoneInput">
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="alertOrder(), getOrderData()">주문하기</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">이름</th>
+            <th scope="col">수량</th>
+            <th scope="col">주소</th>
+            <th scope="col">전화번호</th>
+        </tr>
+        </thead>
+        <tbody class="orderList">
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+<script>
+    function alertOrder(){
+        let info = $('.getInfo').children()
+        let check = 1
+        info.each(function() {
+                if(($(this).val()=="")){
+                    let eachName = this.parentNode.previousElementSibling.textContent
+                    alert(`${eachName}이 비어있습니다. 다시 입력해주세요`)
+                    check = 0;
+                    return false;
+                }
+            }
+        );
+        if(check === 0){
+            return;
+        }
+        alert('주문이 완료되었습니다.')
+    }
+    function getOrderData(){
+        let name = $('.nameInput').val()
+        let count = $('.countInput').val()
+        let address = $('.addressInput').val()
+        let phone = $('.phoneInput').val()
+
+        $.ajax({
+            type: "POST",
+            url: "/order", 		//주소창!
+            data: {
+                'name_give' : name,
+                'orderCount_give' : count,
+                'address_give' : address,
+                'phone_give' : phone
+            },
+            success: function(response){
+                window.location.reload()
+                alert('db에 들어감')
+            }
+        })
+
+    }
+
+    function showOrderData(){
+        $.ajax({
+            type:"GET",
+            url: "/order",
+            data:{},
+            success:function (response){
+                if (response["result"] == "success") {
+                    console.log('success')
+                    let rows = response['data']
+                    for (let i = 0; i < rows.length; i++) {
+                        let row = rows[i]
+                        let name = row['name']
+                        let count = row['count']
+                        let address = row['address']
+                        let phone = row['phone']
+                        let temp =
+                            `<tr>
+                                 <th scope="row">${name}</th>
+                                 <td>${count}</td>
+                                 <td>${address}</td>
+                                 <td>${phone}</td>
+                             </tr>`
+                        $('.orderList').append(temp)
+
+                    }
+                }
+                else{
+                    console.log('connect fail')
+                }
+
+            }
+        })
+    }
+    window.onload = function showExchange(){
+        showOrderData()
+        $.ajax({
+            type:"GET",
+            url: "https://api.manana.kr/exchange/rate.json",
+            data:{},
+            success:function (response){
+                let rate = response[1]['rate']
+                $('.exchange').text(`달러-원 환율: ${rate}`)
+            }
+        })
+
+
+
+    }
+</script>
+</html>
